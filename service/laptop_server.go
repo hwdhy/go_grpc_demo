@@ -81,7 +81,7 @@ func (server *LaptopServer) SearchLaptop(req *pb.SearchLaptopRequest, stream pb.
 	filter := req.GetFilter()
 	log.Printf("receive a search-laptop request with filter: %v", filter)
 
-	err := server.Store.Search(filter, func(laptop *pb.Laptop) error {
+	err := server.Store.Search(stream.Context(), filter, func(laptop *pb.Laptop) error {
 		res := &pb.SearchLaptopResponse{
 			Laptop: laptop,
 		}
