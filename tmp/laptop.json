@@ -1,0 +1,62 @@
+{
+  "id": "efc813f4-de7b-4b20-a8a8-038a42ecdab7",
+  "brand": "Dell",
+  "name": "XPS",
+  "cpu": {
+    "brand": "Intel",
+    "name": "Xeon E--2286M",
+    "number_cores": 4,
+    "number_threads": 7,
+    "min_ghz": 3.051696968182378,
+    "max_ghz": 4.682860937139777
+  },
+  "ram": {
+    "value": "16",
+    "unit": "GIGABYTE"
+  },
+  "gpus": [
+    {
+      "brand": "NVIDIA",
+      "name": "RTX 2070",
+      "min_ghz": 1.4185810143231086,
+      "max_ghz": 1.5949658752461175,
+      "memory": {
+        "value": "4",
+        "unit": "GIGABYTE"
+      }
+    }
+  ],
+  "storages": [
+    {
+      "driver": "SSD",
+      "memory": {
+        "value": "864",
+        "unit": "GIGABYTE"
+      }
+    },
+    {
+      "driver": "HDD",
+      "memory": {
+        "value": "5",
+        "unit": "TERABYTE"
+      }
+    }
+  ],
+  "screen": {
+    "size_inch": 16.282194,
+    "resolution": {
+      "width": 3943,
+      "height": 2218
+    },
+    "panel": "OLED",
+    "multitouch": false
+  },
+  "keyboard": {
+    "layout": "QWERTZ",
+    "backlit": false
+  },
+  "weight_kg": 1.8898623621814767,
+  "price_usd": 1633.9556717476535,
+  "release_year": 2022,
+  "updated_at": "2022-01-15T11:05:19.598608200Z"
+}

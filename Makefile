@@ -7,5 +7,12 @@ gens:
 clean:
 	rm D:\person\code\grpc_project\pb\*.go
 
-run:
-	go run main.go
+# -cover：覆盖率 -race：检测数据竞争
+test:
+	go test -cover -race ./...
+
+server:
+	go run ./cmd/server/main.go -port 8080
+
+client:
+	go run ./cmd/client/main.go -address 0.0.0.0:8080
