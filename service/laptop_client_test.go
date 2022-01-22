@@ -50,7 +50,7 @@ func TestClientSearchLaptop(t *testing.T) {
 		MinCpuCores: 4,
 		MinCpuGhz:   2.2,
 		MinRam: &pb.Memory{
-			Value: 4,
+			Value: 8,
 			Unit:  pb.Memory_GIGABYTE,
 		},
 	}

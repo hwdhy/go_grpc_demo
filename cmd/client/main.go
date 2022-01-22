@@ -59,7 +59,6 @@ func searchLaptop(laptopClient pb.LaptopServiceClient, filter *pb.Filter) {
 		log.Fatal("cannot search laptop:", err)
 	}
 
-	//1
 	for {
 		res, err := stream.Recv()
 		if err == io.EOF {

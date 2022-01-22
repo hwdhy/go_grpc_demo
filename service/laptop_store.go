@@ -88,7 +88,6 @@ func (store *InMemoryLaptopStore) Search(
 			err = found(other)
 			if err != nil {
 				return err
-
 			}
 		}
 	}
