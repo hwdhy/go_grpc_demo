@@ -1,27 +1,27 @@
 {
-  "id": "efc813f4-de7b-4b20-a8a8-038a42ecdab7",
+  "id": "26227f21-07a4-43e8-b76e-793bda0e10a3",
   "brand": "Dell",
   "name": "XPS",
   "cpu": {
     "brand": "Intel",
-    "name": "Xeon E--2286M",
-    "number_cores": 4,
-    "number_threads": 7,
-    "min_ghz": 3.051696968182378,
-    "max_ghz": 4.682860937139777
+    "name": "Core i3-1005G1",
+    "number_cores": 2,
+    "number_threads": 5,
+    "min_ghz": 3.158480781351565,
+    "max_ghz": 4.475039801278862
   },
   "ram": {
-    "value": "16",
+    "value": "42",
     "unit": "GIGABYTE"
   },
   "gpus": [
     {
       "brand": "NVIDIA",
-      "name": "RTX 2070",
-      "min_ghz": 1.4185810143231086,
-      "max_ghz": 1.5949658752461175,
+      "name": "GTX 1660-Ti",
+      "min_ghz": 1.4812039173004257,
+      "max_ghz": 1.58484988279312,
       "memory": {
-        "value": "4",
+        "value": "5",
         "unit": "GIGABYTE"
       }
     }
@@ -30,33 +30,33 @@
     {
       "driver": "SSD",
       "memory": {
-        "value": "864",
+        "value": "636",
         "unit": "GIGABYTE"
       }
     },
     {
       "driver": "HDD",
       "memory": {
-        "value": "5",
+        "value": "2",
         "unit": "TERABYTE"
       }
     }
   ],
   "screen": {
-    "size_inch": 16.282194,
+    "size_inch": 15.791288,
     "resolution": {
-      "width": 3943,
-      "height": 2218
+      "width": 5162,
+      "height": 2904
     },
-    "panel": "OLED",
-    "multitouch": false
+    "panel": "IPS",
+    "multitouch": true
   },
   "keyboard": {
-    "layout": "QWERTZ",
+    "layout": "AZERTY",
     "backlit": false
   },
-  "weight_kg": 1.8898623621814767,
-  "price_usd": 1633.9556717476535,
-  "release_year": 2022,
-  "updated_at": "2022-01-15T11:05:19.598608200Z"
+  "weight_kg": 1.969504722698002,
+  "price_usd": 2967.2735076142226,
+  "release_year": 2015,
+  "updated_at": "2022-01-22T07:09:05.242309900Z"
 }

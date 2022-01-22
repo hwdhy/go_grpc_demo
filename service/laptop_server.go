@@ -7,22 +7,28 @@
 package service
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"grpc_project/pb"
+	"io"
 	"log"
 )
 
+const maxImageSize = 1 << 20
+
 type LaptopServer struct {
-	Store LaptopStore
+	laptopStore LaptopStore
+	imageStore  ImageStore
 }
 
-func NewLaptopServer(store LaptopStore) *LaptopServer {
+func NewLaptopServer(laptopstore LaptopStore, imageStore ImageStore) *LaptopServer {
 	return &LaptopServer{
-		Store: store,
+		laptopStore: laptopstore,
+		imageStore:  imageStore,
 	}
 }
 
@@ -50,18 +56,11 @@ func (server *LaptopServer) CreateLaptop(
 
 	//some heavy processing
 	//time.Sleep(6 * time.Second)
-
-	if ctx.Err() == context.Canceled {
-		log.Println("context is canceled")
-		return nil, status.Errorf(codes.Canceled, "context is canceled")
+	if err := contextErr(ctx); err != nil {
+		return nil, err
 	}
 
-	if ctx.Err() == context.DeadlineExceeded {
-		log.Println("deadline is exceeded")
-		return nil, status.Errorf(codes.DeadlineExceeded, "deadline is exceeded")
-	}
-
-	err := server.Store.Save(laptop)
+	err := server.laptopStore.Save(laptop)
 	if err != nil {
 		code := codes.Internal
 		if errors.Is(err, ErrAlreadyExists) {
@@ -81,7 +80,7 @@ func (server *LaptopServer) SearchLaptop(req *pb.SearchLaptopRequest, stream pb.
 	filter := req.GetFilter()
 	log.Printf("receive a search-laptop request with filter: %v", filter)
 
-	err := server.Store.Search(stream.Context(), filter, func(laptop *pb.Laptop) error {
+	err := server.laptopStore.Search(stream.Context(), filter, func(laptop *pb.Laptop) error {
 		res := &pb.SearchLaptopResponse{
 			Laptop: laptop,
 		}
@@ -97,4 +96,88 @@ func (server *LaptopServer) SearchLaptop(req *pb.SearchLaptopRequest, stream pb.
 		return status.Errorf(codes.Internal, "unexpected error: %v", err)
 	}
 	return nil
+}
+
+func (server *LaptopServer) UploadImage(stream pb.LaptopService_UploadImageServer) error {
+	req, err := stream.Recv()
+	if err != nil {
+		return logError(status.Errorf(codes.Unknown, "cannot receive image info"))
+	}
+
+	laptopID := req.GetInfo().GetLaptopId()
+	laptopType := req.GetInfo().GetImageType()
+	log.Printf("receive an upload-image request for laptop %s with image type %s", laptopID, laptopType)
+
+	laptop, err := server.laptopStore.Find(laptopID)
+	if err != nil {
+		return logError(status.Errorf(codes.Internal, "cannot find laptop: %v", err))
+	}
+
+	if laptop == nil {
+		return logError(status.Errorf(codes.InvalidArgument, "laptop %s doesn't exists", laptop))
+	}
+
+	imageData := bytes.Buffer{}
+	imageSize := 0
+
+	for {
+		if err := contextErr(stream.Context()); err != nil {
+			return err
+		}
+
+		req, err := stream.Recv()
+		if err == io.EOF {
+			log.Print("no more data")
+			break
+		}
+		if err != nil {
+			return logError(status.Errorf(codes.Unknown, "cannot receive chunk data: %v", err))
+		}
+
+		chunk := req.GetChunkData()
+		size := len(chunk)
+
+		imageSize += size
+		if imageSize > maxImageSize {
+			return logError(status.Errorf(codes.InvalidArgument, "image is too large: %d > %d", imageSize, maxImageSize))
+		}
+		_, err = imageData.Write(chunk)
+		if err != nil {
+			return logError(status.Errorf(codes.Internal, "cannot write chunk data: %v", err))
+		}
+	}
+	imageID, err := server.imageStore.Save(laptopID, laptopType, imageData)
+	if err != nil {
+		return logError(status.Errorf(codes.Internal, "cannot save image to the store: %v", err))
+	}
+
+	res := &pb.UploadImageResponse{
+		Id:   imageID,
+		Size: uint32(imageSize),
+	}
+	err = stream.SendAndClose(res)
+	if err != nil {
+		return logError(status.Errorf(codes.Unknown, "cannot send response: %v", err))
+	}
+
+	log.Printf("save image with id: %s,size :%d", imageID, imageSize)
+	return nil
+}
+
+func contextErr(ctx context.Context) error {
+	switch ctx.Err() {
+	case context.DeadlineExceeded:
+		return logError(status.Errorf(codes.DeadlineExceeded, "deadline is exceeded"))
+	case context.Canceled:
+		return logError(status.Errorf(codes.Canceled, "context is canceled"))
+	default:
+		return nil
+	}
+}
+
+func logError(err error) error {
+	if err != nil {
+		log.Print(err)
+	}
+	return err
 }
