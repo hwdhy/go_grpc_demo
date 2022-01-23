@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package techschool.pcbook;
+
 import "memory_message.proto";
 
 //需要申明生成文件的目录

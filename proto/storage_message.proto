@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package techschool.pcbook;
+
 option go_package = "../pb";
 
 import "memory_message.proto";
