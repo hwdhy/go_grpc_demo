@@ -16,3 +16,6 @@ server:
 
 client:
 	go run ./cmd/client/main.go -address 0.0.0.0:8080
+
+
+.PHONY: gens clean test server client

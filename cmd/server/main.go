@@ -23,7 +23,8 @@ func main() {
 
 	laptopStore := service.NewInmemoryLaptopStore()
 	imageStore := service.NewDiskImageStore("img")
-	laptopServer := service.NewLaptopServer(laptopStore, imageStore)
+	ratingStore := service.NewInMemoryRatingStore()
+	laptopServer := service.NewLaptopServer(laptopStore, imageStore, ratingStore)
 	grpcServer := grpc.NewServer()
 
 	pb.RegisterLaptopServiceServer(grpcServer, laptopServer)
