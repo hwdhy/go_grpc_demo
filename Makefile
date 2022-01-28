@@ -17,5 +17,7 @@ server:
 client:
 	go run ./cmd/client/main.go -address 0.0.0.0:8080
 
+cert:
+	cd cert && gen.sh && cd ..
 
-.PHONY: gens clean test server client
+.PHONY: gens clean test server client cert
