@@ -11,15 +11,16 @@ import (
 	"crypto/x509"
 	"flag"
 	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"grpc_project/client"
 	"grpc_project/pb"
 	"grpc_project/sample"
 	"io/ioutil"
-	log "log"
+	"log"
 	"strings"
 	"time"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 func testLaptopCreate(laptopClient *client.LaptopClient) {

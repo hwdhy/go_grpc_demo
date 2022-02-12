@@ -1,27 +1,27 @@
 {
-  "id": "26227f21-07a4-43e8-b76e-793bda0e10a3",
+  "id": "e23e6df2-d14d-4671-9581-ac091f381293",
   "brand": "Dell",
-  "name": "XPS",
+  "name": "Vostro",
   "cpu": {
-    "brand": "Intel",
-    "name": "Core i3-1005G1",
-    "number_cores": 2,
-    "number_threads": 5,
-    "min_ghz": 3.158480781351565,
-    "max_ghz": 4.475039801278862
+    "brand": "AMD",
+    "name": "Ryzen 5 PRO 3500U",
+    "number_cores": 7,
+    "number_threads": 11,
+    "min_ghz": 2.509952325616372,
+    "max_ghz": 2.9637953522402385
   },
   "ram": {
-    "value": "42",
+    "value": "17",
     "unit": "GIGABYTE"
   },
   "gpus": [
     {
       "brand": "NVIDIA",
-      "name": "GTX 1660-Ti",
-      "min_ghz": 1.4812039173004257,
-      "max_ghz": 1.58484988279312,
+      "name": "RTX 2060",
+      "min_ghz": 1.3487900718343262,
+      "max_ghz": 1.5387636393012307,
       "memory": {
-        "value": "5",
+        "value": "3",
         "unit": "GIGABYTE"
       }
     }
@@ -30,7 +30,7 @@
     {
       "driver": "SSD",
       "memory": {
-        "value": "636",
+        "value": "700",
         "unit": "GIGABYTE"
       }
     },
@@ -43,20 +43,20 @@
     }
   ],
   "screen": {
-    "size_inch": 15.791288,
+    "size_inch": 13.249065,
     "resolution": {
-      "width": 5162,
-      "height": 2904
+      "width": 3450,
+      "height": 1941
     },
     "panel": "IPS",
     "multitouch": true
   },
   "keyboard": {
-    "layout": "AZERTY",
-    "backlit": false
+    "layout": "QWERTZ",
+    "backlit": true
   },
-  "weight_kg": 1.969504722698002,
-  "price_usd": 2967.2735076142226,
-  "release_year": 2015,
-  "updated_at": "2022-01-22T07:09:05.242309900Z"
+  "weight_kg": 2.661539064806341,
+  "price_usd": 2727.415673710046,
+  "release_year": 2019,
+  "updated_at": "2022-02-03T10:33:09.024535Z"
 }
