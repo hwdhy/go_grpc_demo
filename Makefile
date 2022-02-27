@@ -1,11 +1,11 @@
 gen:
-	protoc --proto_path=proto -I=D:\dev\GO\src  proto/*.proto --go_out=plugins=grpc:pb
+	protoc --proto_path=proto  proto/*.proto --go_out=plugins=grpc:pb
 
 gens:
-	protoc --proto_path=proto -I=D:\dev\GO\src  proto/*.proto --go_out=plugins=grpc:pb --grpc-gateway_out=:pb --swagger_out=:swagger
+	protoc --proto_path=proto proto/*.proto --go_out=plugins=grpc:pb --grpc-gateway_out=:pb --swagger_out=:swagger
 
 clean:
-	rm D:\person\code\grpc_project\pb\*.go
+	rm pb/*
 
 # -cover：覆盖率 -race：检测数据竞争
 test:
